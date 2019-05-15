@@ -40,6 +40,15 @@
     <div class="ui-footer ui-bar-a">
         <h4 class="ui-title">Fluid Quantity Converter</h4>
     </div>
+    <script type="text/javascript">
+        const button = document.querySelector('form button');
+        const gallons = document.querySelector('form input');
+
+        button.addEventListener('click', function(event){
+            event.preventDefault();
+            alert(gallons.value);
+        })
+    </script>
 </body>
 
 </html>
