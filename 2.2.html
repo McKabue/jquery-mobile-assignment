@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery Mobile Assignment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center>.ui-page {
+            position: relative;
+            width: auto;
+            height: auto !important;
+            min-height: auto !important;
+        }
+    </style>
+</head>
+
+<body class="center">
+    <div class="ui-header ui-bar-a">
+        <h1 class="ui-title">Converting fluid Measurements</h1>
+    </div>
+
+    <div class="ui-content">
+        <form data-ajax="false">
+            <label>Enter the fluid <span class="convert-from"></span></label>
+            <input type="number" />
+
+            <div>Convert to:</div>
+            <label>
+                <input type="radio" name="radio-choice-0" class="gallons" />
+                Gallons
+            </label>
+            <label>
+                <input type="radio" name="radio-choice-0" class="litres" />
+                Litres
+            </label>
+            <button>Convert</button>
+        </form>
+    </div>
+
+    <div class="ui-footer ui-bar-a">
+        <h4 class="ui-title">Fluid Quantity Converter</h4>
+    </div>
+
+    <script type="text/javascript">
+        const input = document.querySelector('form input[type="number"]');
+        const convertFrom = document.querySelector('.convert-from');
+        const gallonsRadioChoice = document.querySelector('form input[type="radio"].gallons');
+        const litresRadioChoice = document.querySelector('form input[type="radio"].litres');
+        const toGallons = () => +input.value / 3.78541;
+        const toLitres = () => +input.value * 3.78541;
+        let gallonsIsCheckedChoice = false;
+        const radioChangeCallback = event => {
+            const checked = document.querySelector('input[type="radio"]:checked');
+            if (!!checked && event.currentTarget.classList.contains('litres')) {
+                convertFrom.innerText = 'Gallons';
+                gallonsIsCheckedChoice = false;
+            } else {
+                convertFrom.innerText = 'Litres';
+                gallonsRadioChoice.checked = true;
+                gallonsIsCheckedChoice = true;
+            }
+        };
+
+        radioChangeCallback();
+        gallonsRadioChoice.addEventListener('click', radioChangeCallback);
+        litresRadioChoice.addEventListener('click', radioChangeCallback);
+
+        $('input:radio').on('click', radioChangeCallback);
+
+        input.addEventListener('input', event => {
+            if (gallonsIsCheckedChoice && toLitres() > 4000) {
+                alert(`Litres needs to be less than or equal to 4000`);
+                input.value = '';
+                return;
+            }
+
+            if (toGallons() > 1000) {
+                alert(`Gallons needs to be less than or equal to 1000`);
+                input.value = '';
+                return;
+            }
+        });
+    </script>
+</body>
+
+</html>

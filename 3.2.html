@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery Mobile Assignment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center>.ui-page {
+            position: relative;
+            width: auto;
+            height: auto !important;
+            min-height: auto !important;
+        }
+    </style>
+</head>
+
+<body class="center">
+    <div class="ui-content">
+        <button id="and">AND</button>
+        <button id="or">OR</button>
+        <button id="not">NOT</button>
+        <button id='xor'>XOR</button>
+
+        <div id='table'></div>
+    </div>
+
+    <script>
+        const createTable = operator => {
+            const operators = {
+                'and': function (a, b) { return a && b; },
+                'or': function (a, b) { return a || b; },
+                'not': function (a, b) { return a != b; },
+                'xor': function (a, b) { return (a || b) && !(a && b); }
+            };
+            const operatorFunc = operators[operator];
+            if (!operatorFunc) return;
+            const operatorFuncWrapper = (a, b) => operators[operator](a, b) ? 1 : 0;
+
+            const table =
+                `<table data-role="table" class="ui-responsive">
+                    <thead>
+                        <tr>
+                            <td>A</td>
+                            <td>B</td>
+                            <td>A ${operator} B</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>${operatorFuncWrapper(1, 1)}</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>${operatorFuncWrapper(1, 0)}</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>${operatorFuncWrapper(0, 1)}</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>${operatorFuncWrapper(0, 0)}</td>
+                        </tr>
+                    </tbody>
+                </table>`;
+
+            window.table.innerHTML = table;
+        };
+        window.and.onclick = () => createTable('and');
+        window.or.onclick = () => createTable('or');
+        window.not.onclick = () => createTable('not');
+        window.xor.onclick = () => createTable('xor');
+    </script>
+</body>
+
+</html>

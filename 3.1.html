@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery Mobile Assignment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center>.ui-page {
+            position: relative;
+            width: auto;
+            height: auto !important;
+            min-height: auto !important;
+        }
+    </style>
+</head>
+
+<body class="center">
+    <div class="ui-content">
+
+        <h1 class="ui-title">XOR</h1>
+        <div class="ui-content">
+            Outputs true only when an input differ(one is true and the other false)
+            It does not produce true if all are true)
+            True only when odd numbers
+        </div>
+
+
+        <h1 class="ui-title">NOT</h1>
+        <div class="ui-content">
+            Produce an inverted version of the input, also known as the inverter
+            if the input variable is aA, the inverted output is not A also known as A’
+            NOT gate is also known as Inverter. It has one input A and one output Y.
+        </div>
+
+
+        <h1 class="ui-title">OR</h1>
+        <div class="ui-content">
+            The OR gate gets its name from the fact that it behaves after the fashion of the logical inclusive "or." The
+            output is "true" if either or both of the inputs are "true." If both inputs are "false," then the output is
+            "false."
+        </div>
+
+
+        <h1 class="ui-title">AND</h1>
+        <div class="ui-content">
+            The AND gate is so named because, if 0 is called "false" and 1 is called "true," the gate acts in the same
+            way
+            as the logical "and" operator. The following illustration and table show the circuit symbol and logic
+            combinations for an AND gate. (In the symbol, the input terminals are at left and the output terminal is at
+            right.) The output is "true" when both inputs are "true." Otherwise, the output is "false."
+        </div>
+
+
+
+        <form data-ajax="false">
+            <label>Enter value of A ('true', 'false', '0', '1')</label>
+            <input type="text" class="a" />
+            <label>Enter value of b ('true', 'false', '0', '1')</label>
+            <input type="text" class="b" />
+        </form>
+
+        <button id="and">AND</button>
+        <button id="or">OR</button>
+        <button id="not">NOT</button>
+        <button id='xor'>XOR</button>
+    </div>
+
+    <script>
+        const inputA = document.querySelector('input.a');
+        const inputB = document.querySelector('input.b');
+        const showValue = operator => {
+            const operators = {
+                'and': function (a, b) { return a && b; },
+                'or': function (a, b) { return a || b; },
+                'not': function (a, b) { return a != b; },
+                'xor': function (a, b) { return (a || b) && !(a && b); }
+            };
+            const operatorFunc = operators[operator];
+            if (!operatorFunc) return;
+            const operatorFuncWrapper = (a, b) => operators[operator](a, b) ? 1 : 0;
+
+            const inputAValue = inputA.value;
+            const inputBValue = inputB.value;
+
+            if (isValid(inputAValue) && isValid(inputBValue))
+                alert(operatorFuncWrapper(getValue(inputAValue), getValue(inputBValue)));
+            else
+                alert("Values can only be 'true', 'false', '0', '1'");
+        };
+        window.and.onclick = () => showValue('and');
+        window.or.onclick = () => showValue('or');
+        window.not.onclick = () => showValue('not');
+        window.xor.onclick = () => showValue('xor');
+
+        const isBooleanTrue = (value) =>
+            ((value.startsWith('t') ||
+                value.startsWith('tr') ||
+                value.startsWith('tru') ||
+                value.startsWith('true')) && value.length <= 4);
+        const isBooleanFalse = (value) =>
+            ((value.startsWith('f') ||
+                value.startsWith('fa') ||
+                value.startsWith('fal') ||
+                value.startsWith('fals') ||
+                value.startsWith('false')) && value.length <= 5);
+        const isNumberOne = (value) => +value == 1;
+        const isNumberZero = (value) => +value == 0;
+        const getValue = (value) => (isNumberOne(value) || isBooleanTrue(value)) ? 1 : 0;
+
+        const isValid = (value) => {
+            const isBoolean = () => isBooleanTrue(value) || isBooleanFalse(value);
+            const isNumber = () => isNumberOne(value) || isNumberZero(value);
+
+            return !!value && (isBoolean() || isNumber());
+        };
+        const validate = event => {
+            const element = event.currentTarget;
+            const value = (element.value || '').trim();
+            if (!value) return;
+
+            if (!isValid(value)) {
+                alert("Value can only be 'true', 'false', '0', '1'");
+                element.value = '';
+            }
+        };
+        inputA.addEventListener('input', validate);
+        inputB.addEventListener('input', validate);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery Mobile Assignment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center>.ui-page {
+            position: relative;
+            width: auto;
+            height: auto !important;
+            min-height: auto !important;
+        }
+    </style>
+</head>
+
+<body class="center">
+    <div class="ui-header ui-bar-a">
+        <h1 class="ui-title">Converting fluid Measurements</h1>
+    </div>
+
+    <div class="ui-content">
+
+        <div data-role="tabs">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#information-tab" data-ajax="false">Information</a></li>
+                    <li><a href="#interface-tab" data-ajax="false">Details</a></li>
+                </ul>
+            </div>
+            <div id="information-tab" class="ui-body-d ui-content">
+                <h1>Fluid Unit Conversion</h1>
+                <p> There are two primary units for measuring volume of fluid</p>
+                <li>Imperial system uses units such asd gallon</li>
+                <li> metric system uses units such as litres</li>
+                The app allows you to convert from gallons to litres using the formula
+                <p>litre= gallio 3.456</p>
+            </div>
+            <div id="interface-tab" class="ui-body-d ui-content">
+                <form data-ajax="false">
+                    <label>Enter the fluid gallons</label>
+                    <input type="range" min="0" max="100" />
+                    <button class="ui-btn-corner-all">Display</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-footer ui-bar-a">
+        <h4 class="ui-title">Fluid Quantity Converter</h4>
+    </div>
+    <script type="text/javascript">
+        let button = document.querySelector('form button');
+        let gallons = document.querySelector('form input');
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            alert(gallons.value);
+        });
+    </script>
+</body>
+
+</html>
