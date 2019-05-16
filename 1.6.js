@@ -25,6 +25,15 @@ for (i = 0; i <= 10; i++) {
     b[i] = Math.random();
 }
 
-const distance = (array1, array2) => array1;
+const distance = (arrayA, arrayB) => {
+    let i = 0;
+    const n = arrayA.length;
+    let sum = 0;
+    for (i; i <= (n - 1); i++) {
+        sum += ((arrayA[i] - arrayB[i]) ** 2)
+    }
+
+    return Math.sqrt(sum) / n;
+};
 
 console.log(distance(a, b));

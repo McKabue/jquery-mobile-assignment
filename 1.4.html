@@ -61,10 +61,10 @@
     </div>
     <script type="text/javascript">
         let button = document.querySelector('form button');
-        let gallons = document.querySelector('form input');
-
-        button.addEventListener('click', function (event) {
+        
+        button.addEventListener('click', event => {
             event.preventDefault();
+            let gallons = document.querySelector('form input');
             alert(gallons.value);
         });
     </script>

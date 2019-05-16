@@ -102,22 +102,22 @@
         window.not.onclick = () => showValue('not');
         window.xor.onclick = () => showValue('xor');
 
-        const isBooleanTrue = (value) =>
+        const isBooleanTrue = value =>
             ((value.startsWith('t') ||
                 value.startsWith('tr') ||
                 value.startsWith('tru') ||
                 value.startsWith('true')) && value.length <= 4);
-        const isBooleanFalse = (value) =>
+        const isBooleanFalse = value =>
             ((value.startsWith('f') ||
                 value.startsWith('fa') ||
                 value.startsWith('fal') ||
                 value.startsWith('fals') ||
                 value.startsWith('false')) && value.length <= 5);
-        const isNumberOne = (value) => +value == 1;
-        const isNumberZero = (value) => +value == 0;
-        const getValue = (value) => (isNumberOne(value) || isBooleanTrue(value)) ? 1 : 0;
+        const isNumberOne = value => +value == 1;
+        const isNumberZero = value => +value == 0;
+        const getValue = value => (isNumberOne(value) || isBooleanTrue(value)) ? 1 : 0;
 
-        const isValid = (value) => {
+        const isValid = value => {
             const isBoolean = () => isBooleanTrue(value) || isBooleanFalse(value);
             const isNumber = () => isNumberOne(value) || isNumberZero(value);
 
